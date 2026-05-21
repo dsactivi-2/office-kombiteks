@@ -22,8 +22,8 @@ export const createRuntimeProvider = (
     case "claw3d":
       return new CustomRuntimeProvider(client, runtimeUrl, {
         id: "claw3d",
-        label: "Claw3D Runtime",
-        runtimeName: "Claw3D Runtime",
+        label: "Office Runtime",
+        runtimeName: "Office Runtime",
         routeProfile: "claw3d",
       });
     case "custom":

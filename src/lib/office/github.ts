@@ -532,9 +532,9 @@ export const submitGitHubPullRequestReview = (params: {
   const body =
     params.body?.trim() ||
     (params.action === "COMMENT"
-      ? "Reviewed in Claw3D."
+      ? "Reviewed in Office Kombiteks."
       : params.action === "REQUEST_CHANGES"
-        ? "Please address the requested updates from Claw3D."
+        ? "Please address the requested updates from Office Kombiteks."
         : "");
   if (body) {
     args.push("--body", body);
