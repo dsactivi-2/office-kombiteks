@@ -228,9 +228,11 @@ export async function hydrateAgentFleetFromGateway(params: {
           if (!recoveredName || isTemporarySkillAgentName(recoveredName)) {
             return agent;
           }
+          const shouldReplaceListedName =
+            !listedName || isTemporarySkillAgentName(listedName);
           return {
             ...agent,
-            name: recoveredName,
+            name: shouldReplaceListedName ? recoveredName : agent.name,
             identity: {
               ...(agent.identity ?? {}),
               name: recoveredName,
