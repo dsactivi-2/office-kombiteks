@@ -13,7 +13,7 @@ Instead of watching automation through dashboards and logs, you walk through a l
 
 If you want a personal, self-hosted workspace that turns your AI workforce into something you can actually _see_, this is it.
 
-Supported runtimes include: OpenClaw Gateway, Hermes, a direct HTTP `custom` runtime provider for orchestrator-backed stacks, and a built-in demo gateway for office exploration without a real agent framework.
+Supported runtimes include: OpenClaw Gateway, Activi Agent, a direct HTTP `custom` runtime provider for orchestrator-backed stacks, and a built-in demo gateway for office exploration without a real agent framework.
 
 [Vision](VISION.md) · [Architecture](ARCHITECTURE.md) · [Tutorial](TUTORIAL.md) · [Getting Started](#quick-start) · [Runtime Profiles](docs/runtime-profiles.md) · [Multi-Agent Beta](docs/multi-agent-beta.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
 
@@ -35,7 +35,7 @@ Office Kombiteks is the visualization and interaction layer.
 Today it can sit on top of:
 
 - OpenClaw through the existing gateway flow
-- Hermes through the bundled WebSocket adapter
+- Activi Agent through the bundled WebSocket adapter
 - a direct HTTP `custom` runtime provider for orchestrator-backed stacks
 - a built-in demo gateway for office exploration without a real agent framework
 
@@ -80,12 +80,12 @@ Requirements:
 - npm 10+ recommended.
 - One of:
   - a working OpenClaw installation with a reachable Gateway URL and token
-  - Hermes with the bundled adapter
+  - Activi Agent with the bundled adapter
   - the built-in demo gateway for local exploration
 
 Prerequisite:
 
-- Office Kombiteks does not install or build OpenClaw or Hermes for you.
+- Office Kombiteks does not install or build OpenClaw or Activi Agent for you.
 - Before starting Office Kombiteks against a real backend, make sure your chosen runtime is already running and that you know the gateway URL and token Studio should use.
 - For a no-framework local office demo, run the bundled demo gateway instead.
 - If you need a full cross-machine setup guide (OpenClaw + Tailscale + Office Kombiteks), follow [`TUTORIAL.md`](TUTORIAL.md).
@@ -101,7 +101,7 @@ npm run dev
 ```
 
 Then open `http://localhost:3000` and configure the gateway URL and token in Studio.
-Studio now also persists the selected backend mode (`OpenClaw`, `Hermes`, `Demo`, `Local`, `Office`, or `Custom`) and
+Studio now also persists the selected backend mode (`OpenClaw`, `Activi Agent`, `Demo`, `Local`, `Office`, or `Custom`) and
 shows the active backend reported by the connected gateway.
 
 ### Runtime profiles
@@ -135,11 +135,11 @@ Current direct-runtime expectations:
 The browser does not call that runtime directly. Office Kombiteks proxies the
 `custom` provider through its own same-origin route at
 `/api/runtime/custom`, which avoids browser-side CORS problems and keeps
-the provider transport separate from the OpenClaw/Hermes gateway path.
+the provider transport separate from the OpenClaw/Activi Agent gateway path.
 
 ### Demo mode
 
-If you only want to see the office and agent interactions without installing OpenClaw or Hermes:
+If you only want to see the office and agent interactions without installing OpenClaw or Activi Agent:
 
 ```bash
 npm run demo-gateway
@@ -155,9 +155,9 @@ ws://localhost:18789
 This starts a mock local gateway with demo agents, streaming chat, session previews, and office presence.
 In the connect screen, choose `Demo backend`, then connect.
 
-### Hermes adapter
+### Activi Agent adapter
 
-If you want to use Hermes instead of OpenClaw:
+If you want to use Activi Agent instead of OpenClaw:
 
 ```bash
 npm run hermes-adapter
@@ -172,7 +172,7 @@ For a local gateway on the same machine, the usual upstream URL is:
 ws://localhost:18789
 ```
 
-In the connect screen, choose `Hermes backend`, then connect.
+In the connect screen, choose `Activi Agent backend`, then connect.
 
 ## How It Connects
 
@@ -249,7 +249,7 @@ Common environment variables:
 - `NEXT_PUBLIC_GATEWAY_URL` provides the default upstream gateway URL when Studio settings are empty. **Note:** this is a build-time variable — changes require `npm run build` to take effect.
 - `CLAW3D_GATEWAY_URL` and `CLAW3D_GATEWAY_TOKEN` provide a runtime alternative to `NEXT_PUBLIC_GATEWAY_URL` that takes effect on server restart without a rebuild.
 - `CLAW3D_GATEWAY_ADAPTER_TYPE` can pair with `CLAW3D_GATEWAY_URL` to mark those runtime defaults as `openclaw`, `hermes`, `demo`, `local`, `claw3d`, or `custom`.
-- If `CLAW3D_GATEWAY_URL` is not set, Studio can still surface local Hermes or demo adapter defaults from `HERMES_ADAPTER_PORT` / `DEMO_ADAPTER_PORT`.
+- If `CLAW3D_GATEWAY_URL` is not set, Studio can still surface local Activi Agent or demo adapter defaults from `HERMES_ADAPTER_PORT` / `DEMO_ADAPTER_PORT`.
 - OpenClaw file defaults still come from `~/.openclaw/openclaw.json` when present.
 - `OPENCLAW_STATE_DIR` and `OPENCLAW_CONFIG_PATH` override the default OpenClaw paths.
 - `OPENCLAW_GATEWAY_SSH_TARGET`, `OPENCLAW_GATEWAY_SSH_USER`, `OPENCLAW_GATEWAY_SSH_PORT`, and `OPENCLAW_GATEWAY_SSH_STRICT_HOST_KEY_CHECKING` support advanced gateway-host operations over SSH when needed.
@@ -260,7 +260,7 @@ See [`.env.example`](.env.example) for the full local development template.
 ## Scripts
 
 - `npm run dev` starts the Studio dev server.
-- `npm run hermes-adapter` starts the Hermes WebSocket adapter.
+- `npm run hermes-adapter` starts the Activi Agent WebSocket adapter.
 - `npm run demo-gateway` starts the built-in mock gateway for demo mode.
 - `npm run build` builds the production Next.js app.
 - `npm run start` starts the production server.
@@ -284,7 +284,7 @@ See [`.env.example`](.env.example) for the full local development template.
 - [`ROADMAP.md`](ROADMAP.md): near-term priorities and contributor-friendly work areas.
 - [`docs/pi-chat-streaming.md`](docs/pi-chat-streaming.md): gateway runtime streaming and transcript rendering.
 - [`docs/permissions-sandboxing.md`](docs/permissions-sandboxing.md): Studio permissions and OpenClaw behavior.
-- [`docs/hermes-gateway.md`](docs/hermes-gateway.md): Hermes adapter setup, capabilities, and current limitations.
+- [`docs/hermes-gateway.md`](docs/hermes-gateway.md): Activi Agent adapter setup, capabilities, and current limitations.
 
 ## Current Limitations
 
@@ -298,7 +298,7 @@ If the UI loads but Connect fails, the problem is usually on the Studio -> Gatew
 
 - Confirm the upstream URL and token in Studio settings.
 - `EPROTO` or `wrong version number` usually means `wss://` was used against a non-TLS endpoint.
-- `INVALID_REQUEST` errors mentioning `minProtocol` or `maxProtocol` usually mean the gateway is too old for the office protocol v3. Upgrade OpenClaw, use the Hermes adapter, or run `npm run demo-gateway`.
+- `INVALID_REQUEST` errors mentioning `minProtocol` or `maxProtocol` usually mean the gateway is too old for the office protocol v3. Upgrade OpenClaw, use the Activi Agent adapter, or run `npm run demo-gateway`.
 - `401 Studio access token required` usually means `STUDIO_ACCESS_TOKEN` is enabled and the request is missing the expected `studio_access` cookie.
 - If `/api/runtime/custom` returns a blocked-host error in production, set `CUSTOM_RUNTIME_ALLOWLIST` or include the runtime host in `UPSTREAM_ALLOWLIST`.
 - Helpful proxy error codes include `studio.gateway_url_missing`, `studio.gateway_token_missing`, `studio.upstream_error`, and `studio.upstream_closed`.
