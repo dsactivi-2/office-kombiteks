@@ -17,7 +17,7 @@ Supported runtimes include: OpenClaw Gateway, Hermes, a direct HTTP `custom` run
 
 [Vision](VISION.md) · [Architecture](ARCHITECTURE.md) · [Tutorial](TUTORIAL.md) · [Getting Started](#quick-start) · [Runtime Profiles](docs/runtime-profiles.md) · [Multi-Agent Beta](docs/multi-agent-beta.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
 
-> **Unofficial project.** Office Kombiteks is an independent workspace built from the Claw3D/Hermes Office codebase and is not affiliated with, endorsed by, or maintained by the OpenClaw team. OpenClaw is a separate project, and this repository is not the official OpenClaw repository.
+> **Unofficial project.** Office Kombiteks is an independent workspace built from an upstream AI office codebase and is not affiliated with, endorsed by, or maintained by the OpenClaw team. OpenClaw is a separate project, and this repository is not the official OpenClaw repository.
 
 ## What you can do with Office Kombiteks
 
@@ -338,9 +338,5 @@ For first-time SSH connections, Office Kombiteks uses `StrictHostKeyChecking=acc
 Keep pull requests focused, run `npm run lint`, `npm run typecheck`, and `npm run test` before opening a PR, and update docs when behavior or architecture changes.
 
 ## AI Editing Guardrails
-
-If you use Cursor or another AI-assisted workflow, review the committed project guardrails in [`.cursor/rules/claw3d-project-guardrails.mdc`](.cursor/rules/claw3d-project-guardrails.mdc).
-
-That rule file captures the shared editing expectations for this repository, including the Claw3D-vs-OpenClaw boundary, code placement conventions, office-stack distinctions, and documentation/test update expectations.
 
 Community expectations live in [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md). Security reporting instructions live in [`SECURITY.md`](SECURITY.md).
